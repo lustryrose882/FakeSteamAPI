@@ -1064,37 +1064,11 @@ DerivedInterfaceGenerator_Begin(ISteamApps);
 		FakeSteamAPI_LogFuncBeingCalled();
 		return 0;
 	}
-	virtual uint32 GetInstalledDepots(AppId_t appID, DepotId_t *pvecDepots, uint32 cMaxDepots) {
+	virtual uint32 GetInstalledDepots( DepotId_t *pvecDepots, uint32 cMaxDepots ) {
 		FakeSteamAPI_LogFuncBeingCalled();
 		return 0;
 	}
 	virtual uint32 GetAppInstallDir(AppId_t appID, char *pchFolder, uint32 cchFolderBufferSize) {
-		FakeSteamAPI_LogFuncBeingCalled();
-		return 0;
-	}
-	virtual bool BIsAppInstalled(AppId_t appID) {
-		FakeSteamAPI_LogFuncBeingCalled();
-		return 0;
-	}
-	virtual CSteamID GetAppOwner() {
-		CSteamID fuck;
-		FakeSteamAPI_LogFuncBeingCalled();
-		return fuck;
-	}
-	virtual const char *GetLaunchQueryParam(const char *pchKey) {
-		FakeSteamAPI_LogFuncBeingCalled();
-		return 0;
-	}
-	virtual bool GetDlcDownloadProgress(AppId_t nAppID, uint64 *punBytesDownloaded, uint64 *punBytesTotal) {
-		FakeSteamAPI_LogFuncBeingCalled();
-		return 0;
-	}
-	virtual int GetAppBuildId() {
-		FakeSteamAPI_LogFuncBeingCalled();
-		return 0;
-	}
-	virtual void RequestAllProofOfPurchaseKeys() VFunction_STUB
-	virtual SteamAPICall_t GetFileDetails(const char* pszFileName) {
 		FakeSteamAPI_LogFuncBeingCalled();
 		return 0;
 	}
