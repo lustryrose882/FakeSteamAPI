@@ -11,8 +11,8 @@
 #endif
 
 #include "steam_api.h"
-#include "isteamgameserver.h"
-#include "isteamgameserverstats.h"
+#include "ISteamGameServer.h"
+#include "ISteamGameServerStats.h"
 
 enum EServerMode
 {

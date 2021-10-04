@@ -10,10 +10,6 @@
 #include <ctime>
 #include <io.h>
 
-#pragma comment(lib, "comctl32")
-#pragma comment(lib, "user32")
-#pragma comment(lib, "gdi32")
-
 using namespace std;
 
 char g_static_str_storage[8192];
@@ -25,11 +21,13 @@ HWND g_hwLogger;
 
 #define EDIT_CONTROL_ID 100001
 #define EDIT_SUBCLASS_ID 100001
+
 #define SYSMENU_ALWAYS_ON_TOP_ID (1001 << 16)
 #define SYSMENU_PROCESS_MESSAGE_IN_RUNCALLBACKS (1002 << 16)
 #define SYSMENU_USE_ABSOLUTE_ADDRESS (1003 << 16)
 
-void FakeSteamAPI_Internal_GenerateCurrentTimeString(char *buf) {
+void FakeSteamAPI_Internal_GenerateCurrentTimeString(char *buf)
+{
 	struct timespec timespec;
 	struct tm tm;
 	time_t t;
@@ -49,22 +47,26 @@ void FakeSteamAPI_Internal_GenerateCurrentTimeString(char *buf) {
 #endif //defined _WIN32
 }
 
-void FakeSteamAPI_SpecifyLog(const char *path) {
+void FakeSteamAPI_SpecifyLog(const char *path)
+{
 	strcpy(g_strLogFilePath, path);
 }
 
-LRESULT CALLBACK Edit_SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR nIdSubClass, DWORD_PTR dwRefData) {
-	switch (msg) {
-	case WM_NCMOUSEMOVE:
-	case WM_MOUSEMOVE:
-		while (ShowCursor(TRUE) < 0);
-		break;
+LRESULT CALLBACK Edit_SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR nIdSubClass, DWORD_PTR dwRefData)
+{
+	switch (msg)
+	{
+		case WM_NCMOUSEMOVE:
+		case WM_MOUSEMOVE:
+			while (ShowCursor(TRUE) < 0);
+			break;
 	}
 	return DefSubclassProc(hwnd, msg, wParam, lParam);
 }
 
 //Sets the caret to the end of the text and append the text
-void Edit_AppendTextA(HWND hwEdit, char *str) {
+void Edit_AppendTextA(HWND hwEdit, char *str)
+{
 	int nTextLen;
 	//nTextLen = GetWindowTextLengthA(hwEdit);
 	nTextLen = 1024 * 1024;
@@ -72,7 +74,8 @@ void Edit_AppendTextA(HWND hwEdit, char *str) {
 	SendMessageA(hwEdit, EM_REPLACESEL, FALSE, (LPARAM)str);
 }
 
-bool FakeSteamAPI_AppendLog(int level, const char *str, ...) {
+bool FakeSteamAPI_AppendLog(int level, const char *str, ...)
+{
 	const char *const strPrefixTable[] = { NULL, "Info", "Warn", "Error", "Debug" };
 	char buf[64];
 	va_list vl;
@@ -91,7 +94,8 @@ bool FakeSteamAPI_AppendLog(int level, const char *str, ...) {
 
 	fclose(fp);
 
-	if (g_bUseLogWindow) {
+	if (g_bUseLogWindow)
+	{
 		char strBuf[8192];
 		HWND hwEdit;
 
@@ -103,7 +107,8 @@ bool FakeSteamAPI_AppendLog(int level, const char *str, ...) {
 	return true;
 }
 
-bool FakeSteamAPI_NewLogLine(void) {
+bool FakeSteamAPI_NewLogLine(void)
+{
 	bool bNewFile;
 	FILE *fp;
 
@@ -121,7 +126,8 @@ bool FakeSteamAPI_NewLogLine(void) {
 	return true;
 }
 
-bool FakeSteamAPI_EmptyLog(void) {
+bool FakeSteamAPI_EmptyLog(void)
+{
 	FILE *fp;
 
 	fp = fopen(g_strLogFilePath, "w");
@@ -133,7 +139,8 @@ bool FakeSteamAPI_EmptyLog(void) {
 	return true;
 }
 
-bool FakeSteamAPI_Internal_RetrieveMenuCheck(HMENU hMenu, UINT nItemId) {
+bool FakeSteamAPI_Internal_RetrieveMenuCheck(HMENU hMenu, UINT nItemId)
+{
 	MENUITEMINFO mii;
 	mii.cbSize = sizeof(MENUITEMINFO);
 	mii.fMask = MIIM_STATE;
@@ -141,7 +148,8 @@ bool FakeSteamAPI_Internal_RetrieveMenuCheck(HMENU hMenu, UINT nItemId) {
 	return (bool)(mii.fState & MFS_CHECKED);
 }
 
-bool FakeSteamAPI_Internal_InvertMenuCheck(HMENU hMenu, UINT nItemId) {
+bool FakeSteamAPI_Internal_InvertMenuCheck(HMENU hMenu, UINT nItemId)
+{
 	MENUITEMINFO mii;
 	mii.cbSize = sizeof(MENUITEMINFO);
 	mii.fMask = MIIM_STATE;
@@ -150,7 +158,8 @@ bool FakeSteamAPI_Internal_InvertMenuCheck(HMENU hMenu, UINT nItemId) {
 	return (bool)(mii.fState & MFS_CHECKED);
 }
 
-HFONT FakeSteamAPI_Internal_EasyCreateFontA(HDC hdc, const char *strFont, int nPointSize) {
+HFONT FakeSteamAPI_Internal_EasyCreateFontA(HDC hdc, const char *strFont, int nPointSize)
+{
 	int nLogPixelsX, nLogPixelsY;
 	bool bMarkHdcDelete;
 	LOGFONTA logFont;
@@ -196,7 +205,8 @@ HFONT FakeSteamAPI_Internal_EasyCreateFontA(HDC hdc, const char *strFont, int nP
 	return hFont;
 }
 
-LRESULT CALLBACK FakeSteamAPI_Internal_LogWindowCallback(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK FakeSteamAPI_Internal_LogWindowCallback(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
 	HMENU hMenuSys;
 	RECT rtClient;
 	HFONT hFont;
@@ -280,7 +290,8 @@ LRESULT CALLBACK FakeSteamAPI_Internal_LogWindowCallback(HWND hwnd, UINT msg, WP
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
-bool FakeSteamAPI_AllocLogWindow(void) {
+bool FakeSteamAPI_AllocLogWindow(void)
+{
 	WNDCLASSA wc;
 
 	if (g_bUseLogWindow)
@@ -309,7 +320,9 @@ bool FakeSteamAPI_AllocLogWindow(void) {
 		GetModuleHandle(NULL),
 		NULL
 	);
-	if (g_hwLogger == NULL) {
+
+	if (g_hwLogger == NULL)
+	{
 		UnregisterClassA(FakeSteamAPI_LogWindowClassName, GetModuleHandle(NULL));
 		return false;
 	}
@@ -319,7 +332,8 @@ bool FakeSteamAPI_AllocLogWindow(void) {
 	return true;
 }
 
-bool FakeSteamAPI_FreeLogWindow(void) {
+bool FakeSteamAPI_FreeLogWindow(void)
+{
 	if (!g_bUseLogWindow)
 		return false;
 

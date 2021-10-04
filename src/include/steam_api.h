@@ -10,51 +10,50 @@
 #pragma once
 #endif
 
-#include "isteamclient.h"
-#include "isteamuser.h"
-#include "isteamfriends.h"
-#include "isteamutils.h"
-#include "isteammatchmaking.h"
-#include "isteamuserstats.h"
-#include "isteamapps.h"
-#include "isteamnetworking.h"
-#include "isteamremotestorage.h"
-#include "isteamscreenshots.h"
-#include "isteammusic.h"
-#include "isteammusicremote.h"
-#include "isteamhttp.h"
-#include "isteamcontroller.h"
-#include "isteamugc.h"
-#include "isteamapplist.h"
-#include "isteamhtmlsurface.h"
-#include "isteaminventory.h"
-#include "isteamvideo.h"
-#include "isteamparentalsettings.h"
+#include "ISteamClient.h"
+#include "ISteamUser.h"
+#include "ISteamFriends.h"
+#include "ISteamUtils.h"
+#include "ISteamMatchmaking.h"
+#include "ISteamUserStats.h"
+#include "ISteamApps.h"
+#include "ISteamNetworking.h"
+#include "ISteamRemoteStorage.h"
+#include "ISteamScreenshots.h"
+#include "ISteamMusic.h"
+#include "ISteamMusicRemote.h"
+#include "ISteamHTTP.h"
+#include "ISteamController.h"
+#include "ISteamUGC.h"
+#include "ISteamAppList.h"
+#include "ISteamHTMLSurface.h"
+#include "ISteamInventory.h"
+#include "ISteamVideo.h"
+#include "ISteamParentalSettings.h"
 
 
 // Steam API export macro
 #if defined( _WIN32 ) && !defined( _X360 )
-	#if defined( STEAM_API_EXPORTS )
-	#define S_API extern "C" __declspec( dllexport ) 
-	#elif defined( STEAM_API_NODLL )
-	#define S_API extern "C"
-	#else
-	#define S_API extern "C" __declspec( dllimport ) 
-	#endif // STEAM_API_EXPORTS
+#if defined( STEAM_API_EXPORTS )
+#define S_API extern "C" __declspec( dllexport ) 
+#elif defined( STEAM_API_NODLL )
+#define S_API extern "C"
+#else
+#define S_API extern "C" __declspec( dllimport ) 
+#endif // STEAM_API_EXPORTS
 #elif defined( GNUC )
-	#if defined( STEAM_API_EXPORTS )
-	#define S_API extern "C" __attribute__ ((visibility("default"))) 
-	#else
-	#define S_API extern "C" 
-	#endif // STEAM_API_EXPORTS
+#if defined( STEAM_API_EXPORTS )
+#define S_API extern "C" __attribute__ ((visibility("default"))) 
+#else
+#define S_API extern "C" 
+#endif // STEAM_API_EXPORTS
 #else // !WIN32
-	#if defined( STEAM_API_EXPORTS )
-	#define S_API extern "C"  
-	#else
-	#define S_API extern "C" 
-	#endif // STEAM_API_EXPORTS
+#if defined( STEAM_API_EXPORTS )
+#define S_API extern "C"  
+#else
+#define S_API extern "C" 
+#endif // STEAM_API_EXPORTS
 #endif
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	Steam API setup & shutdown
 //

@@ -26,7 +26,8 @@
 	}
 
 //Total 21 interfaces
-struct CSteamAPIContextStruct {
+struct CSteamAPIContextStruct
+{
 	ISteamClient		*m_pSteamClient;
 	ISteamUser			*m_pSteamUser;
 	ISteamFriends		*m_pSteamFriends;
@@ -50,40 +51,6 @@ struct CSteamAPIContextStruct {
 	ISteamParentalSettings *m_pSteamParentalSettings;
 };
 
-/*
-class ISteamClientDerived : ISteamClient {
-public:
-	static ISteamClient& GetInstance (void) {
-		return instance;
-	}
-protected:
-	static ISteamClientDerived instance;
-};
-*/
-
-/*
-DerivedInterfaceGenerator(ISteamClient);
-DerivedInterfaceGenerator(ISteamUser);
-DerivedInterfaceGenerator(ISteamFriends);
-DerivedInterfaceGenerator(ISteamUtils);
-DerivedInterfaceGenerator(ISteamMatchmaking);
-DerivedInterfaceGenerator(ISteamUserStats);
-DerivedInterfaceGenerator(ISteamApps);
-DerivedInterfaceGenerator(ISteamMatchmakingServers);
-DerivedInterfaceGenerator(ISteamNetworking);
-DerivedInterfaceGenerator(ISteamRemoteStorage);
-DerivedInterfaceGenerator(ISteamScreenshots);
-DerivedInterfaceGenerator(ISteamHTTP);
-DerivedInterfaceGenerator(ISteamController);
-DerivedInterfaceGenerator(ISteamUGC);
-DerivedInterfaceGenerator(ISteamAppList);
-DerivedInterfaceGenerator(ISteamMusic);
-DerivedInterfaceGenerator(ISteamMusicRemote);
-DerivedInterfaceGenerator(ISteamHTMLSurface);
-DerivedInterfaceGenerator(ISteamInventory);
-DerivedInterfaceGenerator(ISteamVideo);
-DerivedInterfaceGenerator(ISteamParentalSettings);
-*/
 
 DerivedInterfaceGenerator_Begin(ISteamClient);
 	virtual HSteamPipe CreateSteamPipe() {
@@ -2452,7 +2419,8 @@ DerivedInterfaceGenerator_End(ISteamParentalSettings);
 
 static CSteamAPIContextStruct sSteamContext;
 
-bool FakeSteamAPI_InitializeContext(void) {
+bool FakeSteamAPI_InitializeContext(void)
+{
 	sSteamContext.m_pSteamClient = &ISteamClientDerived::GetInstance();
 	sSteamContext.m_pSteamUser = &ISteamUserDerived::GetInstance();
 	sSteamContext.m_pSteamFriends = &ISteamFriendsDerived::GetInstance();
@@ -2479,7 +2447,8 @@ bool FakeSteamAPI_InitializeContext(void) {
 	return true;
 }
 
-CSteamAPIContext& FakeSteamAPI_GetContextInstance(void) {
+CSteamAPIContext& FakeSteamAPI_GetContextInstance(void)
+{
 	static bool bInitialized = false;
 	if (!bInitialized)
 		FakeSteamAPI_InitializeContext();

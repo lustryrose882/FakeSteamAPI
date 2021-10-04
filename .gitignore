@@ -1,0 +1,24 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+#CMake build directories
+build*/*
+out*/*
+
+
+# Visual Studio Code Preferences
+.vscode/
+
+# Visual Studio 2015 cache/options directory
+.vs/
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Dynamic Library
+*.dll
